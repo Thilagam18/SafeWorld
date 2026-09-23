@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SafeWord - Emergency Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-icon">🛡️</div>
+      <div class="brand-text">
+        <h1>SafeWord</h1>
+        <span class="brand-tagline">Emergency Response & Safety Monitor</span>
+      </div>
+    </div>
+    <div class="system-status-indicator">
+      <div class="status-pulse-dot" id="systemPulse"></div>
+      <span class="status-label">System Status:</span>
+      <span class="status-badge status-online" id="systemStatusBadge">Active / Monitoring</span>
+    </div>
+  </header>
+
+  <main class="dashboard-container">
+    <!-- Alert Banner / Status Bar -->
+    <section class="alert-banner standby" id="alertBanner">
+      <div class="banner-content">
+        <div class="banner-icon" id="bannerIcon">🟢</div>
+        <div class="banner-info">
+          <div class="banner-subtitle">EMERGENCY ALERT STATUS</div>
+          <div class="banner-title" id="bannerTitle">NORMAL / STANDBY</div>
+        </div>
+      </div>
+      <div class="banner-actions">
+        <button id="resolveBtn" class="btn btn-secondary" onclick="resolveCurrentAlert()" style="display: none;">
+          Clear Alert / Reset
+        </button>
+      </div>
+    </section>
+
+    <!-- Test Trigger Action Bar -->
+    <section class="action-card">
+      <div class="action-card-text">
+        <h2>Simulate Emergency Event</h2>
+        <p>Trigger a mock emergency payload to verify telemetry, notification dispatch, and incident logging.</p>
+      </div>
+      <button id="testAlertBtn" class="btn btn-emergency-large" onclick="triggerMockAlert()">
+        <span class="btn-icon">🚨</span>
+        <span class="btn-text">Test Alert</span>
+      </button>
+    </section>
+
+    <!-- Main Grid: Active Telemetry + Recent Alerts -->
+    <div class="dashboard-grid">
+      <!-- Active Incident / Telemetry Panel -->
+      <section class="card telemetry-card">
+        <div class="card-header">
+          <h3>Current Alert Telemetry</h3>
+          <span class="telemetry-badge" id="telemetryBadge">Awaiting Trigger</span>
+        </div>
+        
+        <div class="telemetry-grid">
+          <div class="telemetry-item">
+            <span class="item-label">Latitude</span>
+            <div class="item-value-box">
+              <span class="item-value monospace" id="dispLatitude">37.774929</span>
+              <span class="item-unit">° N</span>
+            </div>
+          </div>
+
+          <div class="telemetry-item">
+            <span class="item-label">Longitude</span>
+            <div class="item-value-box">
+              <span class="item-value monospace" id="dispLongitude">-122.419416</span>
+              <span class="item-unit">° W</span>
+            </div>
+          </div>
+
+          <div class="telemetry-item">
+            <span class="item-label">Timestamp</span>
+            <div class="item-value-box">
+              <span class="item-value monospace" id="dispTimestamp">2026-09-23T15:10:00.000Z</span>
+            </div>
+            <span class="item-subtext" id="dispRelativeTime">Ready for simulation</span>
+          </div>
+
+          <div class="telemetry-item">
+            <span class="item-label">Emergency Contact</span>
+            <div class="contact-pill">
+              <span class="contact-avatar">👤</span>
+              <div class="contact-details">
+                <span class="contact-name" id="dispContact">Mom</span>
+                <span class="contact-phone" id="dispContactPhone">+1 (555) 234-5678</span>
+              </div>
+              <span class="contact-status-chip">SMS & Call Ready</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a id="mapsLink" href="https://maps.google.com/?q=37.774929,-122.419416" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            📍 View on Google Maps
+          </a>
+        </div>
+      </section>
+
+      <!-- Recent Alerts Log -->
+      <section class="card recent-alerts-card">
+        <div class="card-header">
+          <h3>Recent Alerts Log</h3>
+          <span class="alerts-count-badge" id="alertsCount">3 recorded</span>
+        </div>
+
+        <div class="alerts-table-wrapper">
+          <table class="alerts-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Status</th>
+                <th>Coordinates</th>
+                <th>Contact</th>
+                <th>Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="recentAlertsBody">
+              <!-- Dynamically populated by dashboard.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="dashboard-footer">
+    SafeWord Rapid Response Prototype • Local Demo Mode
+  </footer>
+
+  <script src="../detection/trigger.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
